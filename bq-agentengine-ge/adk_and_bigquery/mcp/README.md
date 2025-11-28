@@ -123,4 +123,18 @@ If you prefer to deploy manually, follow these steps (based on the [official gui
         --set-secrets "/app/$TOOLS_FILE=tools:latest" \
         --args="--tools-file=/app/$TOOLS_FILE","--address=0.0.0.0","--port=8080" \
         --allow-unauthenticated
-    ```
+
+curl -X POST http://127.0.0.1:8080/mcp/bus-stop-images-toolset \
+-H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1NzMzYmJiZDgxOGFhNWRiMTk1MTk5Y2Q1NjhlNWQ2ODUxMzJkM2YiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNjE4MTA0NzA4MDU0LTlyOXMxYzRhbGczNmVybGl1Y2hvOXQ1Mm4zMm42ZGdxLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNjE4MTA0NzA4MDU0LTlyOXMxYzRhbGczNmVybGl1Y2hvOXQ1Mm4zMm42ZGdxLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA2Mzc0MzE4NDk5NTQ1Njc1NjA2IiwiaGQiOiJjcmlzdGFiZWwuYWx0b3N0cmF0LmNvbSIsImVtYWlsIjoiYWRtaW5AY3Jpc3RhYmVsLmFsdG9zdHJhdC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6InFKSHd3UWMzSGVVNmxaTVU3LTBERmciLCJuYmYiOjE3NjM2NzU5MzUsImlhdCI6MTc2MzY3NjIzNSwiZXhwIjoxNzYzNjc5ODM1LCJqdGkiOiI1NDgzYTI5YWRlMjljMmE4NzFiMWQ1ZThmZjgxNzAwNDE2MmY0OGViIn0.hjaaMtvpxp3FfxAg4dlUcIbg4t7p2XO-S5LYytoQL8OfKGAY96h07QD9M8uhOKKQXJ3EZ1enioMfdw3nxugwwOYaOUDU8BDXnWJCFWpiLo8XjVIYIhENFigrJ0pWEwM8bspOtIQyKn6ecHbT63nyd4Xh0Yp-dCYUMzDSyyILJmDII_7m7BpffOzE0gW1Hxh4dd12gaLheuYGqLY84zrZRKDcGHcpQNcXHFOs88Id_n_X9yhl5sdNPiobKARRCKu42cvh6KxiLu6d6At8cTdnsl2BRWo2bqRcLK_zTQo7yORhRiJtlzrkJ91zmm-gC3TM9nztbu2Dp2p3rwjyBKpzxQ" \
+-H "Content-Type: application/json" \
+-d '{
+  "jsonrpc": "2.0",
+  "method": "tools/call",
+  "params": {
+    "name": "search-bus-stops-by-words-in-description",
+    "arguments": {
+      "words_to_search": "scattered dry leaves"
+    }
+  },
+  "id": 1
+}'

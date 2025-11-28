@@ -8,8 +8,8 @@ REGION="us-central1"
 IMAGE="us-central1-docker.pkg.dev/database-toolbox/toolbox/toolbox:latest"
 TOOLS_FILE="mcp.yaml"
 # Use defaults if not set
-BIGQUERY_RUN_PROJECT_ID=yogaproject-1508
-BIGQUERY_DATA_PROJECT_ID=yogaproject-1508-multimodal
+BIGQUERY_RUN_PROJECT_ID=YOUR-PROJECT-ID
+BIGQUERY_DATA_PROJECT_ID=YOUR-PROJECT-ID
 BIGQUERY_DATA_LOCATION=us-central1
 GOOGLE_GENAI_USE_VERTEXAI=1
 
