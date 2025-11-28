@@ -39,7 +39,55 @@ This agent takes text requests from the client and, if any details are missing, 
 
     # If you changed the port when starting the agent, use that port instead
     # uv run . --agent http://localhost:YOUR_PORT
-    ```
+
+
+## Deployment
+
+The `deploy.sh` script automates the deployment process. To deploy your agent, navigate to the `to_deploy` directory and run the script with your Google Cloud Project ID and a name for your new service. You can also optionally specify the Gemini model to use.
+
+```bash
+# --- Configuration ---
+export PROJECT_ID="your-gcp-project-id"
+export REGION="us-central1" # Or your preferred GCP region
+export SERVICE_NAME="my-a2a-agent"
+export ENGINE_ID="your-discovery-engine-id"
+
+# --- 1. Deploy to Cloud Run ---
+# This script builds the container, pushes it to GCR, and deploys to Cloud Run.
+# It also updates the service with the required AGENT_URL environment variable.
+bash deploy.sh $PROJECT_ID $SERVICE_NAME
+
+# --- 2. Grant Invoker Permissions ---
+# Allow Gemini Enterprise to securely call your agent via IAM.
+PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(projectNumber)')
+gcloud run services add-iam-policy-binding $SERVICE_NAME \
+  --member="serviceAccount:service-$PROJECT_NUMBER@gcp-sa-discoveryengine.iam.gserviceaccount.com" \
+  --role="roles/run.invoker" \
+  --project=$PROJECT_ID \
+  --region=$REGION
+
+# Or grant the  "Cloud Run Invoker" role to the following principal in the project where Cloud Run is running: `service-PROJECT_NUMBER@gcp-sa-discoveryengine.iam.gserviceaccount.com`
+
+gcloud projects add-iam-policy-binding yogaproject-1508 \
+    --member="serviceAccount:service-${PROJECT_NUMBER}@gcp-sa-discoveryengine.iam.gserviceaccount.com" \
+    --role="roles/run.invoker"
+
+# --- 3. Register with Gemini Enterprise ---
+# Define agent metadata
+export AGENT_DISPLAY_NAME="My A2A Agent"
+export AGENT_DESCRIPTION="A custom agent for backend processing."
+export SERVICE_URL=$(gcloud run services describe $SERVICE_NAME --project=$PROJECT_ID --region=$REGION --format='value(status.url)')
+
+# Register via the Discovery Engine API
+curl -X POST -H "Authorization: Bearer $(gcloud auth print-access-token)" -H "Content-Type: application/json" https://discoveryengine.googleapis.com/v1alpha/projects/PROJECT_NUMBER/locations/LOCATION/collections/default_collection/engines/ENGINE_ID/assistants/default_assistant/agents -d '{
+  "name": "AGENT_NAME",
+  "displayName": "AGENT_DISPLAY_NAME",
+  "description": "AGENT_DESCRIPTION",
+    "a2aAgentDefinition": {
+    "jsonAgentCard": "{\n         \"protocolVersion\":\"v1.0\",\n         \"version\":\"1.0.0\",\n         \"url\":\"SERVICE_URL\",\n         \"name\":\"AGENT_DISPLAY_NAME\",\n         \"description\":\"AGENT_DESCRIPTION\",\n         \"capabilities\":{},\n         \"defaultInputModes\": [\n           \"text/plain\"\n         ],\n         \"defaultOutputModes\": [\n           \"text/plain\"\n         ],\n         \"skills\":[\n            {\n             \"description\":\"SKILL_DESCRIPTION\",\n             \"id\":\"skill-123\",\n             \"name\":\"skill-123\",\n             \"tags\": []\n            }\n          ]\n       }"
+   }
+  }'
+```
 
 ## Disclaimer
 
