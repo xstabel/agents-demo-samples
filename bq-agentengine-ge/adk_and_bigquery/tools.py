@@ -125,7 +125,8 @@ class PicklableMcpToolset(McpToolset):
             "_url": self._url,
             "_get_token_func": self._get_token_func
         }
-
+## TO-DO change this to use the new MCP Server https://github.com/google/mcp/blob/main/examples/launchmybakery/adk_agent/mcp_bakery_app/tools.py
+## --> Just need to change the URL to  BIGQUERY_MCP_URL = "https://bigquery.googleapis.com/mcp" and add the header "x-goog-user-project": project_id 
     def __setstate__(self, state):
         self.__dict__.update(state)
         token = self._get_token_func()
