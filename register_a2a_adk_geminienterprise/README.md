@@ -1,5 +1,4 @@
 # First A2A Agent to Cloud Run and Registering with Gemini Enterprise
-# Warning! this is a Preview option to Register A2A Agents with Gemini Enterprise
 
 This guide provides a comprehensive walkthrough of deploying an A2A (Agent-to-Agent) enabled agent, built with the Google Agent Development Kit (ADK), to Google Cloud Run. You will also learn how to register your deployed agent with Gemini Enterprise to make it discoverable and usable by other agents.
 
