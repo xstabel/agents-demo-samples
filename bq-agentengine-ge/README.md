@@ -131,11 +131,11 @@ Then you can register the agent with Gemini Enterprise:
 The agent uses OAuth2 to authenticate users and authorize access to BigQuery.
 
 1.  **Authorization Prompt**: If no valid credentials exist, the agent prompts the user to authorize access.
-    ![Authorization Prompt](adk_and_bigquery/docs/Authorize.png)
+    ![Authorization Prompt](adk_and_bigquery/docs/Authorize_GE_1.png)
 
 
 2.  **OAuth Flow**: The user follows the link to Google's OAuth consent screen.
-    ![OAuth Consent](adk_and_bigquery/docs/Authorize_GE_1.png)
+    ![OAuth Consent](adk_and_bigquery/docs/Authorize.png)
 
 
 3.  **Query Results**: The agent uses the access token to query BigQuery and returns the results to the user.
