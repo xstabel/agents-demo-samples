@@ -1,6 +1,7 @@
 # BigQuery Bus Stop Images MCP Agent
 
-This directory contains the configuration for a Model Context Protocol (MCP) agent designed to interact with a BigQuery dataset containing bus stop images. It uses the `toolbox` executable to serve the agent.
+This repository contains a sample for an ADK agent designed to interact with a BigQuery dataset containing bus stop images using the Model Context Protocol (MCP) and Authentication enabled. 
+Also this guide will provide a walkthrough to deploy your agent to Agent Engine and you will also learn how to register your deployed agent with Gemini Enterprise with Authentication enabled to make it discoverable and usable by other agents.
 
 ## Overview
 

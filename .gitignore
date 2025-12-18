@@ -98,7 +98,7 @@ env/
 venv/
 .python-version
 .venv/
-.env
+.env*
 
 
 coverage.xml

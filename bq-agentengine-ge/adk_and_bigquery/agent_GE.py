@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.§
 
-"""Agent module for the maintenance scheduling agent."""
+"""Agent module for the bigquery bus stop images and information."""
 
 from google.adk.agents import LlmAgent
 import logging
@@ -140,7 +140,7 @@ bq_bus_stop_agent = Agent(
         # Custom tool defined in the agent
         get_latest_bus_stop_images #,
         # A set of tools provided by a remote MCP server
-        #mcp_toolset
+        mcp_toolset
     ],
     before_agent_callback=prereq_setup,
 )
