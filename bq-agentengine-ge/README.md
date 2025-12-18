@@ -63,7 +63,7 @@ Example with options:
 The agent and BQ tools are based on:
 https://github.com/GoogleCloudPlatform/data-to-ai/blob/main/labs/agents/ADK-and-BigQuery.md
 
-## Authentication Flow
+## Local Authentication Flow
 
 The agent uses OAuth2 to authenticate users and authorize access to BigQuery.
 
@@ -111,17 +111,22 @@ To test the agent locally while connecting to the MCP server running in Cloud Ru
       "id": 1
     }'
     ```
+# Deploy to Agent Engine and Gemini Enterprise
+
 ## Deploy to Agent Engine
 
 To deploy the agent to Agent Engine, run the following command:
 ```bash
   ./deployment/create_agent.sh
 ```
+
+## Register on Gemini Enterprise
+
 Then you can register the agent with Gemini Enterprise:
 ```bash
   ./deployment/register_agent.sh
 ```
-# Authentication Flow for Agent Engine
+## Authentication Flow - Gemini Enterprise to Agent Engine
 
 The agent uses OAuth2 to authenticate users and authorize access to BigQuery.
 
